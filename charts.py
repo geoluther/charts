@@ -1,3 +1,5 @@
+#! /usr/bin/python
+
 import csv
 import pprint
 from collections import Counter
@@ -54,6 +56,10 @@ for k, v in c.iteritems():
 	## artist, albumID, track, label, adddate, genre
 
 
-
 print "rows read: ", x
 
+# query
+# SELECT Count(*) as Plays, `AlbumTitle`,`TrackTitle`, `TrackArtist`, `Artist`, `AddDate`, `AlbumId`,`Genre` FROM `SoundExchangePlaylist`
+# WHERE `StartDateTime`between '2017-02-28 00:00:01' and NOW()
+# GROUP BY `TrackTitle`, `AlbumTitle`
+# ORDER BY Plays DESC
