@@ -31,9 +31,7 @@ infile = "SoundExchangePlaylist_033117_names.csv"
 wb = Workbook();
 
 d = date.today()
-print d
 dest_filename = 'Charts_{}.xlsx'.format(d)
-print dest_filename
 
 sheets = [ wb.create_sheet(title=g) for g in genres ]
 
@@ -41,7 +39,6 @@ sheets = [ wb.create_sheet(title=g) for g in genres ]
 wb.remove_sheet( wb.get_sheet_by_name('Sheet') )
 
 x = 0
-
 
 with open(infile, 'rb') as f:
 	reader = csv.DictReader(f)
