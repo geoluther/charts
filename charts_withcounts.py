@@ -40,6 +40,13 @@ wb.remove_sheet( wb.get_sheet_by_name('Sheet') )
 
 x = 0
 
+## write headers to sheets
+header = ['Plays', 'AlbumTitle','TrackTitle', 'Artist', 'AddDate', 'AlbumId','Genre']
+
+for g in genres:
+	sheet=wb.get_sheet_by_name(g)
+	sheet.append(header)
+
 with open(infile, 'rb') as f:
 	reader = csv.DictReader(f)
 
