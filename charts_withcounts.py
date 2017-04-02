@@ -42,12 +42,15 @@ wb.remove_sheet( wb['Sheet'] )
 ## write headers to sheets
 header = ['Plays', 'AlbumTitle','TrackTitle', 'Artist', 'AddDate', 'AlbumId','Genre']
 
+# diff header order
+h2 = ['Plays', 'Artist', 'Track','Album', 'Add Date', 'Album Id','Genre']
+
 ft = Font(bold=True)
 
 
 for g in genres:
 	ws = wb[g]
-	ws.append(header)
+	ws.append(h2)
 
 
 # why doesn't this work?
@@ -72,12 +75,16 @@ with open(infile, 'rb') as f:
 		data = [ int(row['Plays']), row['AlbumTitle'], row['TrackTitle'],
 		artist, row['AddDate'], int(row['AlbumId']), row['Genre'] ]
 
+		## diff column order
+		d2 = [ int(row['Plays']), artist, row['TrackTitle'], row['AlbumTitle'],
+		row['AddDate'], int(row['AlbumId']), row['Genre'] ]
+
 		genre = row["Genre"]
 
 		if genre not in genres:
 			genre = "Unknown"
 
-		wb[genre].append(data)
+		wb[genre].append(d2)
 
 print "rows read >> ", x
 print "writing to >> ", dest_filename
