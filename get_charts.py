@@ -2,12 +2,13 @@
 
 ## use: charts_withcounts.py <infile.csv>
 ## writes to: "Charts_YYYY-MM-DD.xlsx"
-## assumes infile is a CSV file will have counts of plays, structure like:
+## infile is a CSV file with column names counts of plays, structure like:
 ## Plays, `AlbumTitle`,`TrackTitle`, `TrackArtist`, `Artist`, `AddDate`, `AlbumId`,`Genre`
 
 ## how to make better:
 ## run on server, include DB call
 ## run on server as call that returns a download
+## check for utf8 chars in CSV, convert to ascii
 
 
 import csv
@@ -50,7 +51,6 @@ for g in genres:
 	ws = wb[g]
 	ws.append(header)
 
-
 # process csv file
 with open(infile, 'rb') as f:
 	x = 0
@@ -75,6 +75,7 @@ with open(infile, 'rb') as f:
 
 		wb[genre].append(data)
 
+
 print "rows read >> ", x
 print "writing to >> ", outfile
 
@@ -88,7 +89,6 @@ for g in genres:
 
 
 wb.save(filename = outfile)
-
 
 ## sql query to generate csv
 
