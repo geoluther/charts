@@ -10,7 +10,6 @@
 ## run on server as call that returns a download
 ## check for utf8 chars in CSV, convert to ascii
 
-
 import csv
 import sys
 
@@ -25,6 +24,7 @@ genres = [  "Unknown", "Bluegrass", "Blues", "Cajun", "Celtic", "Classical", "Co
             "Gospel", "Hip Hop", "International", "Jazz", "Lounge-Schlock", "Modern",
             "R & B", "Ragtime", "Rap", "Reggae", "Rock", "Soundtrack", "Space", "Spoken Word",
 			"Techno", "Zydeco" ]
+
 
 # infile = "SoundExchangePlaylist_033117_names.csv"
 infile = sys.argv[1]
