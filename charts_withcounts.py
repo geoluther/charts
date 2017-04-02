@@ -10,10 +10,12 @@ import csv
 import pprint
 
 from openpyxl import Workbook
+from openpyxl.styles import Font
 from datetime import date
 
 pp = pprint.PrettyPrinter(indent=4)
 
+# for reference
 columns = ['Plays', 'AlbumTitle','TrackTitle', 'TrackArtist', 'Artist', 'AddDate', 'AlbumId','Genre']
 
 genres = [  "Unknown", "Bluegrass", "Blues", "Cajun", "Celtic", "Classical", "Country", "Folk",
@@ -28,26 +30,34 @@ genres = [  "Unknown", "Bluegrass", "Blues", "Cajun", "Celtic", "Classical", "Co
 
 infile = "SoundExchangePlaylist_033117_names.csv"
 
-wb = Workbook();
-
+wb = Workbook()
 d = date.today()
 dest_filename = 'Charts_{}.xlsx'.format(d)
 
 sheets = [ wb.create_sheet(title=g) for g in genres ]
 
 ## remove the default sheet
-wb.remove_sheet( wb.get_sheet_by_name('Sheet') )
-
-x = 0
+wb.remove_sheet( wb['Sheet'] )
 
 ## write headers to sheets
 header = ['Plays', 'AlbumTitle','TrackTitle', 'Artist', 'AddDate', 'AlbumId','Genre']
 
+ft = Font(bold=True)
+
+
 for g in genres:
-	sheet=wb.get_sheet_by_name(g)
-	sheet.append(header)
+	ws = wb[g]
+	ws.append(header)
+
+
+# why doesn't this work?
+for sheet in sheets:
+	row = sheet.row_dimensions[1]
+	row.font = Font(bold=True)
+
 
 with open(infile, 'rb') as f:
+	x = 0
 	reader = csv.DictReader(f)
 
 	for row in reader:
@@ -58,6 +68,7 @@ with open(infile, 'rb') as f:
 		artist = artist.replace("NULL","")
 
 		# build data row, convert plays and ID from string to int.
+		# should be same order as header
 		data = [ int(row['Plays']), row['AlbumTitle'], row['TrackTitle'],
 		artist, row['AddDate'], int(row['AlbumId']), row['Genre'] ]
 
@@ -70,6 +81,7 @@ with open(infile, 'rb') as f:
 
 print "rows read >> ", x
 print "writing to >> ", dest_filename
+
 
 wb.save(filename = dest_filename)
 
