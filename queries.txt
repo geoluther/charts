@@ -2,3 +2,14 @@ SELECT Count(*) as Plays, `AlbumTitle`,`TrackTitle`, `TrackArtist`, `Artist`, `A
 WHERE `StartDateTime`between '2017-02-28 00:00:01' and NOW()
 GROUP BY `TrackTitle`, `AlbumTitle`
 ORDER BY Plays DESC
+
+
+
+sql query to generate csv
+just count albums.
+
+SELECT Count(*) as Plays, AlbumTitle, TrackArtist, Artist, Label, AddDate, AlbumId, Genre
+FROM SoundExchangePlaylist
+WHERE StartDateTime between '2017-03-03 00:00:01' and NOW()
+GROUP BY AlbumID
+ORDER BY Plays DESC;
